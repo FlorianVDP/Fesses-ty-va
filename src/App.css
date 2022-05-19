@@ -36,3 +36,28 @@
     transform: rotate(360deg);
   }
 }
+.map-container{
+  height: 100vh;
+}
+
+.FormFilterDatas{
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 100;
+  background-color: rgba(255,255,255, .9);
+  backdrop-filter: blur(5px);
+}
+
+.Aside{
+  position: fixed;
+  top: 104px;
+  right: 10px;
+  bottom: 10px;
+  z-index: 100;
+  margin: auto 0;
+  background-color: rgba(255,255,255, .9);
+  backdrop-filter: blur(5px);
+  max-width: 25%;
+}
