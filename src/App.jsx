@@ -1,35 +1,58 @@
-import logo from './logo.svg';
 import './App.css';
 import {useEffect, useState} from "react";
-import GoogleMapComponent from "./components/GoogleMapComponent";
+import GoogleMapComponent from "./components/GoogleMap/GoogleMapComponent";
+import FormFilterDatas from "./components/FormFilterDatas";
+import Aside from "./components/Aside/Aside";
 
-function App() {
+export default function App() {
     const [data, setData] = useState([])
-    console.log(data)
+    const [dataFiltred, setDataFiltred] = useState([])
+    const [filterRegion, setFilterRegion] = useState()
+    useEffect(() => {
+        fetch("https://data.culture.gouv.fr/api/v2/catalog/datasets/panorama-des-festivals/exports/json")
+            .then(
+                res => {
+                    return res.json()
+                }
+            )
+            .then(
+                res => {
+                    setData(res)
+                }
+            )
+            .catch(e => console.log(e))
+    }, [])
+    useEffect(() => {
+        // FilterType
+        if (filterRegion === null) {
+            setDataFiltred(data)
+        } else {
+            setDataFiltred(
+                data.filter(
+                    item => (item.region.includes(filterRegion))
+                )
+            )
+        }
+    }, [filterRegion, data])
 
-  useEffect(()=>{
-      fetch("https://data.culture.gouv.fr/api/v2/catalog/datasets/panorama-des-festivals/records")
-          .then(
-              res => {
-                  return res.json()
-              }
-          )
-          .then(
-              res => {
-                  setData(res)
-              }
-          )
-          .catch(e => console.log(e))
-  }, [])
-
-    function research(e){
-        let value = e.target.value;
+    function clearFilter() {
+        setFilterRegion()
     }
-  return (
-    <>
-        <GoogleMapComponent />
-    </>
-  );
-}
+    //TODO Make other filters
+    function filterRegions(e) {
+        setFilterRegion(e.target.value)
+    }
 
-export default App;
+    function showEvent(event) {
+        //TODO Show event in side window
+        console.log(event)
+    }
+
+    return (
+        <>
+            <FormFilterDatas data={data} filterRegions={filterRegions} clearFilter={clearFilter}/>
+            <Aside />
+            {<GoogleMapComponent data={dataFiltred} showEvent={showEvent}/>}
+        </>
+    );
+}
