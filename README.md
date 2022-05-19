@@ -3,6 +3,8 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 ## Api used
 [data.culture.gouv](https://data.culture.gouv.fr/api/v2/console)
+[Maps JavaScript API](https://developers.google.com/maps/documentation/javascript?hl=fr)
+
 ## Available Scripts
 
 In the project directory, you can run:
