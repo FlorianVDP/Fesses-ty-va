@@ -11,7 +11,7 @@ export default function Map({data, showEvent}) {
                 lng : item.coordonnees_insee.lon,
             }
             return(
-                <Marker position={position} key={key} onClick={()=>showEvent(item)}/>
+                <Marker position={position} key={"marker-"+key} onClick={()=>showEvent(item)}/>
             )
         }else{
             return (

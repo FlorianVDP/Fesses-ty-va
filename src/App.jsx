@@ -51,8 +51,8 @@ export default function App() {
     return (
         <>
             <FormFilterDatas data={data} filterRegions={filterRegions} clearFilter={clearFilter}/>
-            <Aside />
-            {<GoogleMapComponent data={dataFiltred} showEvent={showEvent}/>}
+            {dataFiltred.length > 0 ? <Aside data={dataFiltred} /> : null}
+            <GoogleMapComponent data={dataFiltred} showEvent={showEvent}/>
         </>
     );
 }
