@@ -2,9 +2,10 @@ import {useMemo, useState} from "react";
 import {Button, FormControl, InputLabel, MenuItem, Select, Grid} from "@mui/material";
 
 export default function FormFilterDatas({data, filterRegions, clearFilter}) {
-    const [stateRegion, setRegion] = useState();
-    const [stateDomaine, setDomaine] = useState();
-    const [stateMois, setStateMois] = useState();
+    const [stateRegion, setRegion] = useState("");
+    const [stateDomaine, setDomaine] = useState("");
+    const [stateMois, setStateMois] = useState("");
+
     const uniqueRegion = useMemo(()=>{
         const deeptypes = data.map(item => item.region);
         const flatTypes = deeptypes.flat();
@@ -13,9 +14,13 @@ export default function FormFilterDatas({data, filterRegions, clearFilter}) {
     }, [data])
 
     const regions = uniqueRegion.map(item => {
-        return (
-            <MenuItem value={item} key={{item}}>{item}</MenuItem>
-        )
+        if (!undefined || !false){
+            return (
+                <MenuItem value={item} key={"menuItemRegion-"+item}>{item}</MenuItem>
+            )
+        }else{
+            return null
+        }
     })
 
     //TODO Use custom hook ?
@@ -29,7 +34,7 @@ export default function FormFilterDatas({data, filterRegions, clearFilter}) {
 
     const domaines = uniqueDomaine.map(item => {
         return (
-            <MenuItem value={item} key={{item}}>{item}</MenuItem>
+            <MenuItem value={item} key={"menuItemDomaine-"+item}>{item}</MenuItem>
         )
     })
 
@@ -44,7 +49,7 @@ export default function FormFilterDatas({data, filterRegions, clearFilter}) {
 
     const mois = uniqueMois.map(item => {
         return (
-            <MenuItem value={item} key={{item}}>{item}</MenuItem>
+            <MenuItem value={item} key={"menuItemMois-"+item}>{item}</MenuItem>
         )
     })
 
@@ -59,6 +64,7 @@ export default function FormFilterDatas({data, filterRegions, clearFilter}) {
                         id="region"
                         value={stateRegion}
                         label="Région"
+                        //TODO How to use 2 functions ?
                         onChange={(e) => filterRegions(e)}
                     >
                         {regions}
@@ -75,7 +81,7 @@ export default function FormFilterDatas({data, filterRegions, clearFilter}) {
                         label="domaines"
                         //onChange={(e) => filterRegions(e)}
                     >
-                        {domaines}
+                        {null}
                     </Select>
                 </FormControl>
             </Grid>
@@ -89,7 +95,7 @@ export default function FormFilterDatas({data, filterRegions, clearFilter}) {
                         label="mois"
                         //onChange={(e) => filterRegions(e)}
                     >
-                        {mois}
+                        {null}
                     </Select>
                 </FormControl>
             </Grid>
