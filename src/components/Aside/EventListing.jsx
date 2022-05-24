@@ -1,5 +1,7 @@
 import {Marker} from "@react-google-maps/api";
-import {Grid} from "@mui/material";
+import {Button , grid} from "@mui/material";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 export default function EventListing({data}) {
     const events = data.map((item, key) => {
@@ -11,13 +13,21 @@ export default function EventListing({data}) {
             item.commune_principale
             item.commentaires
             item.departement
+
+            TODO : changement icon au click
              */
             return(
                 <li key={"filtredList-"+key}>
-                    <span className="title">{item.nom_de_la_manifestation}<span>{item.domaine}</span></span>
-                    <address>{item.commune_principale} / {item.departement}</address>
-                    {item.site_web ? <a href={"https://"+item.site_web} target="_blank" title={item.site_web}>{item.site_web}</a> : null}
-                    {item.commentaires ? <p>{item.commentaires}</p> : null}
+                    <div>
+                        <span className="title">
+                            <span>{item.nom_de_la_manifestation}</span>
+                            <FavoriteBorderIcon/> 
+                        </span>
+                        <span>{item.domaine}</span>
+                        <address>{item.commune_principale} / {item.departement}</address>
+                        {item.site_web ? <Button variant="outlined" href={item.site_web} target="_blank" title={item.site_web}>Voir plus</Button> : null}
+                        {item.commentaires ? <p>{item.commentaires}</p> : null}
+                    </div>
                 </li>
             )
         }else{
