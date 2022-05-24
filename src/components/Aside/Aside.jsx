@@ -30,7 +30,7 @@ export default function Aside({data}){
                     >
                         <BottomNavigationAction label="Events" icon={<List />} />
                         <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-                        <BottomNavigationAction label="Agenda" icon={<ViewAgenda />} />
+                        <BottomNavigationAction label="Agenda" icon={<ViewAgenda />} className="hidden"/>
                     </BottomNavigation>
                 </Paper>
                 </Grid>
