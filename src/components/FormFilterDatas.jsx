@@ -113,7 +113,7 @@ export default function FormFilterDatas({data, filterRegions, filterDomaines, fi
                     </Select>
                 </FormControl>
             </Grid>
-            <Grid item xs={2}>
+            {/*<Grid item xs={2}>
                 <FormControl fullWidth>
                     <InputLabel id="annee">Date</InputLabel>
                     <Select
@@ -126,7 +126,7 @@ export default function FormFilterDatas({data, filterRegions, filterDomaines, fi
                         {annees}
                     </Select>
                 </FormControl>
-            </Grid>
+            </Grid>*/}
             <Grid item>
                 <Button variant="text" onClick={clearFilter}>Clear</Button>
             </Grid>

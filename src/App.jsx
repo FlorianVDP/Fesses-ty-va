@@ -3,6 +3,8 @@ import {useEffect, useState} from "react";
 import GoogleMapComponent from "./components/GoogleMap/GoogleMapComponent";
 import FormFilterDatas from "./components/FormFilterDatas";
 import Aside from "./components/Aside/Aside";
+import sanitize from "./functions/sanitize";
+import AddToCalendar from "./functions/addToCalendar";
 
 export default function App() {
     const [data, setData] = useState([])
@@ -11,10 +13,6 @@ export default function App() {
     const [filterDomaine, setFilterDomaine] = useState()
     const [filterAnnee, setFilterAnnee] = useState()
 
-    function sanitize(str){
-        str = str.toLowerCase()
-        return str
-    }
     useEffect(() => {
         fetch("https://data.culture.gouv.fr/api/v2/catalog/datasets/panorama-des-festivals/exports/json")
             .then(
@@ -38,7 +36,6 @@ export default function App() {
         if (!filterRegion && !filterDomaine && !filterAnnee) {
             setDataFiltred([])
         } else {
-            console.log("filter on")
             setDataFiltred(
                 data.filter(
                     item => filterRegion ? (item.region === filterRegion) : true
@@ -70,10 +67,11 @@ export default function App() {
             prevState => []
         )
     }
+
     return (
         <>
             <FormFilterDatas data={data} filterRegions={filterRegions} filterDomaines={filterDomaines} filterAnnees={filterAnnees} clearFilters={clearFilters} />
-            {dataFiltred.length > 0 ? <Aside data={dataFiltred} /> : null}
+            {dataFiltred.length > 0 ? <Aside data={dataFiltred} addToCalendar={AddToCalendar} /> : null}
             <GoogleMapComponent data={dataFiltred} showEvent={showEvent}/>
         </>
     );
