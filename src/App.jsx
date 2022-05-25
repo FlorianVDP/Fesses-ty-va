@@ -8,6 +8,13 @@ export default function App() {
     const [data, setData] = useState([])
     const [dataFiltred, setDataFiltred] = useState([])
     const [filterRegion, setFilterRegion] = useState()
+    const [filterDomaine, setFilterDomaine] = useState()
+    const [filterAnnee, setFilterAnnee] = useState()
+
+    function sanitize(str){
+        str = str.toLowerCase()
+        return str
+    }
     useEffect(() => {
         fetch("https://data.culture.gouv.fr/api/v2/catalog/datasets/panorama-des-festivals/exports/json")
             .then(
@@ -17,40 +24,55 @@ export default function App() {
             )
             .then(
                 res => {
-                    setData(res)
+                    const dataSanitized = res.map(item => {
+                        item.domaine = sanitize(item.domaine)
+                        //console.log(item.domaine)
+                        return item
+                    })
+                    setData(dataSanitized)
                 }
             )
             .catch(e => console.log(e))
     }, [])
     useEffect(() => {
-        // FilterType
-        if (filterRegion === null) {
-            setDataFiltred(data)
+        if (!filterRegion && !filterDomaine && !filterAnnee) {
+            setDataFiltred([])
         } else {
+            console.log("filter on")
             setDataFiltred(
                 data.filter(
-                    item => (item.region.includes(filterRegion))
-                )
+                    item => filterRegion ? (item.region === filterRegion) : true
+                ).filter(
+                        item => filterDomaine ?(item.domaine === filterDomaine):true
+                    ).filter(
+                        item => filterAnnee ?(item.mois_habituel_de_debut === filterAnnee):true
+                    )
             )
         }
-    }, [filterRegion, data])
+    }, [filterRegion, filterDomaine, filterAnnee, data])
 
-    function clearFilter() {
-        setFilterRegion()
-    }
-    //TODO Make other filters
     function filterRegions(e) {
         setFilterRegion(e.target.value)
+    }
+    function filterDomaines(e) {
+        setFilterDomaine(e.target.value)
+    }
+    function filterAnnees(e) {
+        setFilterAnnee(e.target.value)
     }
 
     function showEvent(event) {
         //TODO Show event in side window
         console.log(event)
     }
-
+    function clearFilters(){
+        setDataFiltred(
+            prevState => []
+        )
+    }
     return (
         <>
-            <FormFilterDatas data={data} filterRegions={filterRegions} clearFilter={clearFilter}/>
+            <FormFilterDatas data={data} filterRegions={filterRegions} filterDomaines={filterDomaines} filterAnnees={filterAnnees} clearFilters={clearFilters} />
             {dataFiltred.length > 0 ? <Aside data={dataFiltred} /> : null}
             <GoogleMapComponent data={dataFiltred} showEvent={showEvent}/>
         </>

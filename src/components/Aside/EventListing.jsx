@@ -17,7 +17,7 @@ export default function EventListing({data}) {
             TODO : changement icon au click
              */
             return(
-                <li key={"filtredList-"+key}>
+                <li key={"eventList-"+key}>
                     <div>
                         <span className="title">
                             <span>{item.nom_de_la_manifestation}</span>
