@@ -3,11 +3,16 @@ import {useEffect, useState} from "react";
 import GoogleMapComponent from "./components/GoogleMap/GoogleMapComponent";
 import FormFilterDatas from "./components/FormFilterDatas";
 import Aside from "./components/Aside/Aside";
+import sanitize from "./functions/sanitize";
+import AddToCalendar from "./functions/addToCalendar";
 
 export default function App() {
     const [data, setData] = useState([])
     const [dataFiltred, setDataFiltred] = useState([])
     const [filterRegion, setFilterRegion] = useState()
+    const [filterDomaine, setFilterDomaine] = useState()
+    const [filterAnnee, setFilterAnnee] = useState()
+
     useEffect(() => {
         fetch("https://data.culture.gouv.fr/api/v2/catalog/datasets/panorama-des-festivals/exports/json")
             .then(
@@ -17,41 +22,56 @@ export default function App() {
             )
             .then(
                 res => {
-                    setData(res)
+                    const dataSanitized = res.map(item => {
+                        item.domaine = sanitize(item.domaine)
+                        //console.log(item.domaine)
+                        return item
+                    })
+                    setData(dataSanitized)
                 }
             )
             .catch(e => console.log(e))
     }, [])
     useEffect(() => {
-        // FilterType
-        if (filterRegion === null) {
-            setDataFiltred(data)
+        if (!filterRegion && !filterDomaine && !filterAnnee) {
+            setDataFiltred([])
         } else {
             setDataFiltred(
                 data.filter(
-                    item => (item.region.includes(filterRegion))
-                )
+                    item => filterRegion ? (item.region === filterRegion) : true
+                ).filter(
+                        item => filterDomaine ?(item.domaine === filterDomaine):true
+                    ).filter(
+                        item => filterAnnee ?(item.mois_habituel_de_debut === filterAnnee):true
+                    )
             )
         }
-    }, [filterRegion, data])
+    }, [filterRegion, filterDomaine, filterAnnee, data])
 
-    function clearFilter() {
-        setFilterRegion()
-    }
-    //TODO Make other filters
     function filterRegions(e) {
         setFilterRegion(e.target.value)
+    }
+    function filterDomaines(e) {
+        setFilterDomaine(e.target.value)
+    }
+    function filterAnnees(e) {
+        setFilterAnnee(e.target.value)
     }
 
     function showEvent(event) {
         //TODO Show event in side window
         console.log(event)
     }
+    function clearFilters(){
+        setDataFiltred(
+            prevState => []
+        )
+    }
 
     return (
         <>
-            <FormFilterDatas data={data} filterRegions={filterRegions} clearFilter={clearFilter}/>
-            {dataFiltred.length > 0 ? <Aside data={dataFiltred} /> : null}
+            <FormFilterDatas data={data} filterRegions={filterRegions} filterDomaines={filterDomaines} filterAnnees={filterAnnees} clearFilters={clearFilters} />
+            {dataFiltred.length > 0 ? <Aside data={dataFiltred} addToCalendar={AddToCalendar} /> : null}
             <GoogleMapComponent data={dataFiltred} showEvent={showEvent}/>
         </>
     );

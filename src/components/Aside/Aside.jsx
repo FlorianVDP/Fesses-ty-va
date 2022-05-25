@@ -9,7 +9,7 @@ import EventListing from "./EventListing";
 import Calendar from "./Calendar";
 import FavoritesListing from "./FavoritesListing";
 
-export default function Aside({data}){
+export default function Aside({data, addToCalendar}){
     const [value, setValue] = useState(0)
     //TODO List event when filter change
     //TODO Add to calendar
@@ -17,7 +17,7 @@ export default function Aside({data}){
     return(
             <aside>
                 <Grid container className={"Aside"} height="100%">
-                    {value === 0 ? <EventListing data={data} /> : null}
+                    {value === 0 ? <EventListing data={data} addToCalendar={(item) => addToCalendar(item)} /> : null}
                     {value === 1 ? <FavoritesListing /> : null}
                     {value === 2 ? <Calendar /> : null}
                 <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
@@ -30,7 +30,9 @@ export default function Aside({data}){
                     >
                         <BottomNavigationAction label="Events" icon={<List />} />
                         <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
+{/*
                         <BottomNavigationAction label="Agenda" icon={<ViewAgenda />} className="hidden"/>
+*/}
                     </BottomNavigation>
                 </Paper>
                 </Grid>

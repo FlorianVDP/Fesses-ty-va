@@ -1,9 +1,8 @@
 import {Marker} from "@react-google-maps/api";
 import {Button , grid} from "@mui/material";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 
-export default function EventListing({data}) {
+export default function EventListing({data, addToCalendar}) {
     const events = data.map((item, key) => {
         if (item.coordonnees_insee !== null){
             /*
@@ -17,11 +16,12 @@ export default function EventListing({data}) {
             TODO : changement icon au click
              */
             return(
-                <li key={"filtredList-"+key}>
+                <li key={"eventList-"+key}>
                     <div>
                         <span className="title">
                             <span>{item.nom_de_la_manifestation}</span>
-                            <FavoriteBorderIcon/> 
+                            <FavoriteBorderIcon/>
+                            <button onClick={() => addToCalendar(item)}>Ajouter à l'agenda</button>
                         </span>
                         <span>{item.domaine}</span>
                         <address>{item.commune_principale} / {item.departement}</address>

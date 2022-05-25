@@ -1,16 +1,14 @@
 import {useMemo, useState} from "react";
 import {Button, FormControl, InputLabel, MenuItem, Select, Grid} from "@mui/material";
+import extractUniqueItem from "../functions/extractUniqueItem";
 
-export default function FormFilterDatas({data, filterRegions, clearFilter}) {
+export default function FormFilterDatas({data, filterRegions, filterDomaines, filterAnnees, clearFilters}) {
     const [stateRegion, setRegion] = useState("");
     const [stateDomaine, setDomaine] = useState("");
-    const [stateMois, setStateMois] = useState("");
+    const [stateAnnee, setAnnee] = useState("");
 
     const uniqueRegion = useMemo(()=>{
-        const deeptypes = data.map(item => item.region);
-        const flatTypes = deeptypes.flat();
-        const dataTypes = [...new Set(flatTypes)].sort();
-        return dataTypes
+        return extractUniqueItem(data, "region")
     }, [data])
 
     const regions = uniqueRegion.map(item => {
@@ -23,37 +21,68 @@ export default function FormFilterDatas({data, filterRegions, clearFilter}) {
         }
     })
 
-    //TODO Use custom hook ?
-
     const uniqueDomaine = useMemo(()=>{
-        const deeptypes = data.map(item => item.domaine);
-        const flatTypes = deeptypes.flat();
-        const dataTypes = [...new Set(flatTypes)].sort();
-        return dataTypes
+        return extractUniqueItem(data, "domaine")
     }, [data])
 
     const domaines = uniqueDomaine.map(item => {
-        return (
-            <MenuItem value={item} key={"menuItemDomaine-"+item}>{item}</MenuItem>
-        )
+        if (!undefined || !false){
+            return (
+                <MenuItem value={item} key={"menuItemDomaine-"+item}>{item.charAt(0).toUpperCase() + item.slice(1)}</MenuItem>
+            )
+        }else{
+            return null
+        }
     })
 
-    //TODO Use custom hook ?
-
-    const uniqueMois = useMemo(()=>{
-        const deeptypes = data.map(item => item.mois_habituel_de_debut);
-        const flatTypes = deeptypes.flat();
-        const dataTypes = [...new Set(flatTypes)].sort();
-        return dataTypes
+    const uniqueAnnee = useMemo(()=>{
+        return extractUniqueItem(data, "mois_habituel_de_debut")
     }, [data])
 
-    const mois = uniqueMois.map(item => {
-        return (
-            <MenuItem value={item} key={"menuItemMois-"+item}>{item}</MenuItem>
-        )
+    const annees = uniqueAnnee.map(item => {
+        if (!undefined || !false){
+            return (
+                <MenuItem value={item} key={"menuItemMois-"+item}>{item}</MenuItem>
+            )
+        }else{
+            return null
+        }
+
     })
 
+    function changeRegion(e){
+        setRegion(
+            prevState => e.target.value
+        )
+        filterRegions(e)
+    }
 
+    function changeDomaine(e){
+        setDomaine(
+            prevState => e.target.value
+        )
+        filterDomaines(e)
+    }
+
+    function changeAnnee(e){
+        setAnnee(
+            prevState => e.target.value
+        )
+        filterAnnees(e)
+    }
+
+    function clearFilter() {
+        setRegion(
+            prevState => ""
+        )
+        setDomaine(
+            prevState => ""
+        )
+        setAnnee(
+            prevState => ""
+        )
+        clearFilters()
+    }
     return (
         <Grid container padding={"1em"} justifyContent={"start"} alignItems={"center"} spacing={2} className={"FormFilterDatas"}>
            <Grid item xs={2}>
@@ -64,8 +93,7 @@ export default function FormFilterDatas({data, filterRegions, clearFilter}) {
                         id="region"
                         value={stateRegion}
                         label="Région"
-                        //TODO How to use 2 functions ?
-                        onChange={(e) => filterRegions(e)}
+                        onChange={changeRegion}
                     >
                         {regions}
                     </Select>
@@ -79,36 +107,29 @@ export default function FormFilterDatas({data, filterRegions, clearFilter}) {
                         id="domaines"
                         value={stateDomaine}
                         label="domaines"
-                        //onChange={(e) => filterRegions(e)}
+                        onChange={changeDomaine}
                     >
-                        {null}
+                        {domaines}
                     </Select>
                 </FormControl>
             </Grid>
-            <Grid item xs={2}>
+            {/*<Grid item xs={2}>
                 <FormControl fullWidth>
-                    <InputLabel id="mois">Date</InputLabel>
+                    <InputLabel id="annee">Date</InputLabel>
                     <Select
-                        labelId="mois"
-                        id="mois"
-                        value={stateMois}
-                        label="mois"
-                        //onChange={(e) => filterRegions(e)}
+                        labelId="annee"
+                        id="annee"
+                        value={stateAnnee}
+                        label="annee"
+                        onChange={changeAnnee}
                     >
-                        {null}
+                        {annees}
                     </Select>
                 </FormControl>
-            </Grid>
+            </Grid>*/}
             <Grid item>
-                <Button variant="text">Clear</Button>
+                <Button variant="text" onClick={clearFilter}>Clear</Button>
             </Grid>
-
-            {/*<select name="domaine" id="domaine">
-                {domaine}
-            </select>
-            <select name="mois" id="mois">
-                {mois}
-            </select>*/}
         </Grid>
     )
 }
