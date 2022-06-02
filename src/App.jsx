@@ -13,6 +13,7 @@ export default function App() {
     const [filterDomaine, setFilterDomaine] = useState()
     const [filterAnnee, setFilterAnnee] = useState()
     const [currentEvent, setCurrentEvent] = useState()
+
     useEffect(() => {
         fetch("https://data.culture.gouv.fr/api/v2/catalog/datasets/panorama-des-festivals/exports/json")
             .then(

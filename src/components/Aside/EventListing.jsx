@@ -3,12 +3,10 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import {FavoriteRounded} from "@mui/icons-material";
 import sanitize from "../../functions/sanitize";
 
-
-export default function EventListing({data, addToCalendar, toggleFavorit, favoritList, currentEvent}) {
-    console.log("curent event", currentEvent)
+export default function EventListing({data, addToCalendar, isFavorit}) {
     const events = data.map((item, key) => {
-
         if (item.coordonnees_insee !== null){
+          
             return(
                 <li key={"eventList-"+key} className={currentEvent === item ? "active": null} id={sanitize(item.nom_de_la_manifestation)}>
                     <div>

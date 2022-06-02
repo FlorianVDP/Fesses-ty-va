@@ -8,28 +8,31 @@ import FavoritesListing from "./FavoritesListing";
 
 export default function Aside({data, addToCalendar, currentEvent}){
     const [value, setValue] = useState(0)
-    const [favoritList, setFavoritList] = useState([])
+    const [favorit , setFavorit] = useState([]); 
+   
+    function isFavorit(itemFav){ 
 
-    useEffect(()=>{
-        setFavoritList(
-            JSON.parse(localStorage.getItem("favoritList")) ? JSON.parse(localStorage.getItem("favoritList")) : []
-        )
-    }, [])
+        setFavorit(prevFav => {
+            const newFav = favorit.includes(itemFav) ? 
+                setFavorit(prevState => prevFav.filter(item => item !== itemFav ))
+                : 
+                setFavorit(prevState => [...prevFav.filter(item => item !== itemFav) , itemFav])    
+                
 
-    function toggleFavorit(itemToAddFav){
-
-            setFavoritList( prevState => {
-                const newFav = prevState.includes(itemToAddFav) ? prevState.filter(item => item !== itemToAddFav) : [...prevState.filter(item => item !== itemToAddFav), itemToAddFav];
-                localStorage.setItem("favoritList", JSON.stringify(newFav))
-                return newFav
-            })
-        }
+            localStorage.setItem('itemFav', newFav); 
+            return newFav
+    })
+        
+       console.log('ajouter')
+    }
+    
 
     return(
             <aside>
                 <Grid container className={"Aside"} height="100%">
-                    {value === 0 ? <EventListing currentEvent={currentEvent} toggleFavorit={toggleFavorit} favoritList={favoritList} data={data} addToCalendar={(item) => addToCalendar(item)} /> : null}
-                    {value === 1 ? <FavoritesListing toggleFavorit={toggleFavorit} favoritList={favoritList} addToCalendar={(item) => addToCalendar(item)} /> : null}
+                    {value === 0 ? <EventListing data={data} addToCalendar={(item) => addToCalendar(item)} isFavorit={isFavorit} /> : null}
+                    {value === 1 ? <FavoritesListing data={data} addToCalendar={(item) => addToCalendar(item)} isFavorit={isFavorit} favorit={favorit}/> : null}
+
                 <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
                     <BottomNavigation
                         showLabels
