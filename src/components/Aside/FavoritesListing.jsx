@@ -1,7 +1,6 @@
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import {Button} from "@mui/material";
 
-
 export default function FavoritesListing({ addToCalendar , isFavorit , favorit}) {
     const favorites = favorit.map((item , key) => { 
             return(

@@ -1,5 +1,5 @@
 import './App.css';
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import GoogleMapComponent from "./components/GoogleMap/GoogleMapComponent";
 import FormFilterDatas from "./components/FormFilterDatas";
 import Aside from "./components/Aside/Aside";
@@ -12,7 +12,7 @@ export default function App() {
     const [filterRegion, setFilterRegion] = useState()
     const [filterDomaine, setFilterDomaine] = useState()
     const [filterAnnee, setFilterAnnee] = useState()
-   
+    const [currentEvent, setCurrentEvent] = useState()
 
     useEffect(() => {
         fetch("https://data.culture.gouv.fr/api/v2/catalog/datasets/panorama-des-festivals/exports/json")
@@ -25,13 +25,12 @@ export default function App() {
                 res => {
                     const dataSanitized = res.map(item => {
                         item.domaine = sanitize(item.domaine)
-                        //console.log(item.domaine)
                         return item
                     })
                     setData(dataSanitized)
                 }
             )
-            .catch(e => console.log(e))
+            .catch(e => console.error(e))
     }, [])
     useEffect(() => {
         if (!filterRegion && !filterDomaine && !filterAnnee) {
@@ -59,10 +58,15 @@ export default function App() {
         setFilterAnnee(e.target.value)
     }
 
-    function showEvent(event) {
+    function showEvent(item) {
         //TODO Show event in side window
-        console.log(event)
+        setCurrentEvent(
+            item
+        )
+        const eventName = sanitize(item.nom_de_la_manifestation);
+        document.getElementById(eventName).scrollIntoView({ behavior: 'smooth' })
     }
+
     function clearFilters(){
         setDataFiltred(
             prevState => []
@@ -72,8 +76,8 @@ export default function App() {
     return (
         <>
             <FormFilterDatas data={data} filterRegions={filterRegions} filterDomaines={filterDomaines} filterAnnees={filterAnnees} clearFilters={clearFilters} />
-            {dataFiltred.length > 0 ? <Aside data={dataFiltred} addToCalendar={AddToCalendar} /> : null}
-            <GoogleMapComponent data={dataFiltred} showEvent={showEvent}/>
+            {dataFiltred.length > 0 ? <Aside currentEvent={currentEvent} data={dataFiltred} addToCalendar={AddToCalendar} /> : null}
+            <GoogleMapComponent data={dataFiltred} showEvent={showEvent} />
         </>
     );
 }
