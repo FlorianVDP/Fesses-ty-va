@@ -7,6 +7,7 @@ export default function AddToCalendar(item){
         str = str.charAt(0).toUpperCase() + str.slice(1)
         return str
     }
+    
     //TODO Bad Date
     const name = sanitizeWhiteSpace(item.nom_de_la_manifestation);
     const dateStart = item.date_debut_ancien.replaceAll("-", "")

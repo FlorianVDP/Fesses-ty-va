@@ -11,14 +11,33 @@ import FavoritesListing from "./FavoritesListing";
 
 export default function Aside({data, addToCalendar}){
     const [value, setValue] = useState(0)
+    const [favorit , setFavorit] = useState([]); 
     //TODO List event when filter change
     //TODO Add to calendar
+
+    // function on click 
+    function isFavorit(itemFav){ 
+
+        setFavorit(prevFav => {
+            const newFav = favorit.includes(itemFav) ? 
+                setFavorit(prevState => prevFav.filter(item => item !== itemFav ))
+                : 
+                setFavorit(prevState => [...prevFav.filter(item => item !== itemFav) , itemFav])    
+                
+
+            localStorage.setItem('itemFav', newFav); 
+            return newFav
+    })
+        
+       console.log('ajouter')
+    }
+    
 
     return(
             <aside>
                 <Grid container className={"Aside"} height="100%">
-                    {value === 0 ? <EventListing data={data} addToCalendar={(item) => addToCalendar(item)} /> : null}
-                    {value === 1 ? <FavoritesListing /> : null}
+                    {value === 0 ? <EventListing data={data} addToCalendar={(item) => addToCalendar(item)} isFavorit={isFavorit} /> : null}
+                    {value === 1 ? <FavoritesListing data={data} addToCalendar={(item) => addToCalendar(item)} isFavorit={isFavorit} favorit={favorit}/> : null}
                     {value === 2 ? <Calendar /> : null}
                 <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
                     <BottomNavigation
