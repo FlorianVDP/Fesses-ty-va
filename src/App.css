@@ -63,7 +63,7 @@ aside{
   width: 100%;
 }
 
-ul.EventListing{
+ul.EventListing, ul.FavoritListing{
   width: 100%;
   height: calc(100% - 56px);
   margin: 0;
@@ -71,26 +71,37 @@ ul.EventListing{
   overflow: scroll;
 }
 
-ul.EventListing li{
+ul.EventListing li, ul.FavoritListing li{
   list-style-type: none;
-  padding :  10px 10px 0px ; 
+  padding :  10px 10px 0px ;
 }
 
-ul.EventListing li:hover { 
+ul.EventListing li:hover, ul.FavoritListing li:hover {
   background-color: #f0f0f0;
 }
-
-ul.EventListing li div{
+ul.EventListing li.active, ul.FavoritListing li.active{
+  background-color: #1976d2;
+  color: white;
+}
+ul.EventListing li.active a, ul.FavoritListing li.active a{
+  color: white;
+  border-color: rgba(255, 255, 255, .5);
+}
+ul.EventListing li.active a:hover, ul.FavoritListing li.active a:hover{
+  color: white;
+  border-color: rgba(255, 255, 255, 1);
+}
+ul.EventListing li div, ul.FavoritListing li div{
   padding-bottom : 20px;
-  border-bottom : 1px solid grey 
+  border-bottom : 1px solid rgba(0, 0, 0, .1);
 }
 
-ul.EventListing li div address{
+ul.EventListing li div address, ul.FavoritListing li div address{
   padding-bottom : 20px;
   
 }
 
-ul.EventListing li .title { 
+ul.EventListing li .title, ul.FavoritListing li .title {
   display : flex ; 
   justify-content: space-between;
 }

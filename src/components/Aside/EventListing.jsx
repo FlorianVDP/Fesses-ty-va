@@ -1,27 +1,23 @@
-import {Marker} from "@react-google-maps/api";
-import {Button , grid} from "@mui/material";
+import {Button} from "@mui/material";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import {FavoriteRounded} from "@mui/icons-material";
+import sanitize from "../../functions/sanitize";
 
-export default function EventListing({data, addToCalendar}) {
+
+export default function EventListing({data, addToCalendar, toggleFavorit, favoritList, currentEvent}) {
+    console.log("curent event", currentEvent)
     const events = data.map((item, key) => {
-        if (item.coordonnees_insee !== null){
-            /*
-            item.nom_de_la_manifestation
-            item.domaine
-            item.site_web
-            item.commune_principale
-            item.commentaires
-            item.departement
 
-            TODO : changement icon au click
-             */
+        if (item.coordonnees_insee !== null){
             return(
-                <li key={"eventList-"+key}>
+                <li key={"eventList-"+key} className={currentEvent === item ? "active": null} id={sanitize(item.nom_de_la_manifestation)}>
                     <div>
                         <span className="title">
                             <span>{item.nom_de_la_manifestation}</span>
-                            <FavoriteBorderIcon/>
                             <button onClick={() => addToCalendar(item)}>Ajouter à l'agenda</button>
+                            <button onClick={()=>toggleFavorit(item)}>
+                               {!favoritList.includes(item) ? <FavoriteBorderIcon/> : <FavoriteRounded />}
+                            </button>
                         </span>
                         <span>{item.domaine}</span>
                         <address>{item.commune_principale} / {item.departement}</address>

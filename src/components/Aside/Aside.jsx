@@ -1,25 +1,35 @@
 import {BottomNavigationAction, BottomNavigation, Grid, Paper} from "@mui/material";
 import {useEffect, useState} from "react";
 import * as React from 'react';
-import RestoreIcon from '@mui/icons-material/Restore';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import {List, ViewAgenda} from "@mui/icons-material";
+import {List} from "@mui/icons-material";
 import EventListing from "./EventListing";
-import Calendar from "./Calendar";
 import FavoritesListing from "./FavoritesListing";
 
-export default function Aside({data, addToCalendar}){
+export default function Aside({data, addToCalendar, currentEvent}){
     const [value, setValue] = useState(0)
-    //TODO List event when filter change
-    //TODO Add to calendar
+    const [favoritList, setFavoritList] = useState([])
+
+    useEffect(()=>{
+        setFavoritList(
+            JSON.parse(localStorage.getItem("favoritList")) ? JSON.parse(localStorage.getItem("favoritList")) : []
+        )
+    }, [])
+
+    function toggleFavorit(itemToAddFav){
+
+            setFavoritList( prevState => {
+                const newFav = prevState.includes(itemToAddFav) ? prevState.filter(item => item !== itemToAddFav) : [...prevState.filter(item => item !== itemToAddFav), itemToAddFav];
+                localStorage.setItem("favoritList", JSON.stringify(newFav))
+                return newFav
+            })
+        }
 
     return(
             <aside>
                 <Grid container className={"Aside"} height="100%">
-                    {value === 0 ? <EventListing data={data} addToCalendar={(item) => addToCalendar(item)} /> : null}
-                    {value === 1 ? <FavoritesListing /> : null}
-                    {value === 2 ? <Calendar /> : null}
+                    {value === 0 ? <EventListing currentEvent={currentEvent} toggleFavorit={toggleFavorit} favoritList={favoritList} data={data} addToCalendar={(item) => addToCalendar(item)} /> : null}
+                    {value === 1 ? <FavoritesListing toggleFavorit={toggleFavorit} favoritList={favoritList} addToCalendar={(item) => addToCalendar(item)} /> : null}
                 <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
                     <BottomNavigation
                         showLabels
@@ -30,9 +40,7 @@ export default function Aside({data, addToCalendar}){
                     >
                         <BottomNavigationAction label="Events" icon={<List />} />
                         <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-{/*
-                        <BottomNavigationAction label="Agenda" icon={<ViewAgenda />} className="hidden"/>
-*/}
+
                     </BottomNavigation>
                 </Paper>
                 </Grid>

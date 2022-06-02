@@ -1,17 +1,20 @@
-import {useMemo} from "react";
+import {useMemo, useRef} from "react";
 import {GoogleMap, Marker} from "@react-google-maps/api";
 //import { MarkerClusterer } from "@googlemaps/markerclusterer";
 
 export default function Map({data, showEvent}) {
+    const element = useRef()
+
     const center = useMemo(() => ({ lat: 46, lng: 2 }), []);
     const markers = data.map((item, key) => {
+
         if (item.coordonnees_insee !== null){
             const position = {
                 lat : item.coordonnees_insee.lat,
                 lng : item.coordonnees_insee.lon,
             }
             return(
-                <Marker position={position} key={"marker-"+key} onClick={()=>showEvent(item)}/>
+                <Marker position={position} key={"marker-"+key} onClick={()=>showEvent(item)} ref={element} />
             )
         }else{
             return (

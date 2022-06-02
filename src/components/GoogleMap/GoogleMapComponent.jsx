@@ -8,5 +8,5 @@ export default function GoogleMapComponent({data, showEvent}) {
     });
 
     if (!isLoaded) return <div>Loading...</div>;
-    return <Map data={data} showEvent={(item) => showEvent(item)} />;
+    return <Map data={data} showEvent={showEvent}/>;
 }
