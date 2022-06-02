@@ -1,6 +1,5 @@
 import {useMemo, useRef} from "react";
 import {GoogleMap, Marker} from "@react-google-maps/api";
-//import { MarkerClusterer } from "@googlemaps/markerclusterer";
 
 export default function Map({data, showEvent}) {
     const element = useRef()

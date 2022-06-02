@@ -1,5 +1,5 @@
 import './App.css';
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import GoogleMapComponent from "./components/GoogleMap/GoogleMapComponent";
 import FormFilterDatas from "./components/FormFilterDatas";
 import Aside from "./components/Aside/Aside";

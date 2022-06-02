@@ -1,9 +1,8 @@
 import {Button} from "@mui/material";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import {FavoriteRounded} from "@mui/icons-material";
 import sanitize from "../../functions/sanitize";
 
-export default function EventListing({data, addToCalendar, isFavorit}) {
+export default function EventListing({data, addToCalendar, isFavorit, currentEvent}) {
     const events = data.map((item, key) => {
         if (item.coordonnees_insee !== null){
           
@@ -13,8 +12,8 @@ export default function EventListing({data, addToCalendar, isFavorit}) {
                         <span className="title">
                             <span>{item.nom_de_la_manifestation}</span>
                             <button onClick={() => addToCalendar(item)}>Ajouter à l'agenda</button>
-                            <button onClick={()=>toggleFavorit(item)}>
-                               {!favoritList.includes(item) ? <FavoriteBorderIcon/> : <FavoriteRounded />}
+                            <button onClick={()=>isFavorit(item)}>
+                               <FavoriteBorderIcon/>
                             </button>
                         </span>
                         <span>{item.domaine}</span>

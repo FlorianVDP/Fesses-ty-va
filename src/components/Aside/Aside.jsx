@@ -1,5 +1,5 @@
 import {BottomNavigationAction, BottomNavigation, Grid, Paper} from "@mui/material";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import * as React from 'react';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import {List} from "@mui/icons-material";
@@ -30,7 +30,7 @@ export default function Aside({data, addToCalendar, currentEvent}){
     return(
             <aside>
                 <Grid container className={"Aside"} height="100%">
-                    {value === 0 ? <EventListing data={data} addToCalendar={(item) => addToCalendar(item)} isFavorit={isFavorit} /> : null}
+                    {value === 0 ? <EventListing data={data} addToCalendar={(item) => addToCalendar(item)} isFavorit={isFavorit} currentEvent={currentEvent} /> : null}
                     {value === 1 ? <FavoritesListing data={data} addToCalendar={(item) => addToCalendar(item)} isFavorit={isFavorit} favorit={favorit}/> : null}
 
                 <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>

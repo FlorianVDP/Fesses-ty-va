@@ -2,11 +2,9 @@ import {useMemo, useState} from "react";
 import {Button, FormControl, InputLabel, MenuItem, Select, Grid} from "@mui/material";
 import extractUniqueItem from "../functions/extractUniqueItem";
 
-export default function FormFilterDatas({data, filterRegions, filterDomaines, filterAnnees, clearFilters}) {
+export default function FormFilterDatas({data, filterRegions, filterDomaines, clearFilters}) {
     const [stateRegion, setRegion] = useState("");
     const [stateDomaine, setDomaine] = useState("");
-    const [stateAnnee, setAnnee] = useState("");
-
     const uniqueRegion = useMemo(()=>{
         return extractUniqueItem(data, "region")
     }, [data])
@@ -35,21 +33,6 @@ export default function FormFilterDatas({data, filterRegions, filterDomaines, fi
         }
     })
 
-    const uniqueAnnee = useMemo(()=>{
-        return extractUniqueItem(data, "mois_habituel_de_debut")
-    }, [data])
-
-    const annees = uniqueAnnee.map(item => {
-        if (!undefined || !false){
-            return (
-                <MenuItem value={item} key={"menuItemMois-"+item}>{item}</MenuItem>
-            )
-        }else{
-            return null
-        }
-
-    })
-
     function changeRegion(e){
         setRegion(
             prevState => e.target.value
@@ -64,21 +47,11 @@ export default function FormFilterDatas({data, filterRegions, filterDomaines, fi
         filterDomaines(e)
     }
 
-    function changeAnnee(e){
-        setAnnee(
-            prevState => e.target.value
-        )
-        filterAnnees(e)
-    }
-
     function clearFilter() {
         setRegion(
             prevState => ""
         )
         setDomaine(
-            prevState => ""
-        )
-        setAnnee(
             prevState => ""
         )
         clearFilters()
@@ -113,20 +86,6 @@ export default function FormFilterDatas({data, filterRegions, filterDomaines, fi
                     </Select>
                 </FormControl>
             </Grid>
-            {/*<Grid item xs={2}>
-                <FormControl fullWidth>
-                    <InputLabel id="annee">Date</InputLabel>
-                    <Select
-                        labelId="annee"
-                        id="annee"
-                        value={stateAnnee}
-                        label="annee"
-                        onChange={changeAnnee}
-                    >
-                        {annees}
-                    </Select>
-                </FormControl>
-            </Grid>*/}
             <Grid item>
                 <Button variant="text" onClick={clearFilter}>Clear</Button>
             </Grid>
