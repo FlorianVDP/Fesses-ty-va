@@ -8,24 +8,22 @@ import FavoritesListing from "./FavoritesListing";
 
 export default function Aside({data, addToCalendar, currentEvent}){
     const [value, setValue] = useState(0)
-    const [favorit , setFavorit] = useState([]); 
-   
-    function isFavorit(itemFav){ 
 
-        setFavorit(prevFav => {
-            const newFav = favorit.includes(itemFav) ? 
-                setFavorit(prevState => prevFav.filter(item => item !== itemFav ))
-                : 
-                setFavorit(prevState => [...prevFav.filter(item => item !== itemFav) , itemFav])    
-                
+    const [favorit , setFavorit] = useState([]);
 
-            localStorage.setItem('itemFav', newFav); 
-            return newFav
+    function isFavorit(itemFav){
+
+      setFavorit(prevFav => {
+          const newFav = favorit.includes(itemFav) ?
+              setFavorit(prevFav.filter(item => item !== itemFav ))
+              :
+              setFavorit([...prevFav.filter(item => item !== itemFav) , itemFav])
+          return newFav
     })
-        
-       console.log('ajouter')
+
     }
-    
+
+
 
     return(
             <aside>

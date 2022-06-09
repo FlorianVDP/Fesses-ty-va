@@ -1,15 +1,16 @@
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import {Button} from "@mui/material";
+import SwitchHeart from "./SwitchHeart";
+import DateRangeIcon from '@mui/icons-material/DateRange';
 
 export default function FavoritesListing({ addToCalendar , isFavorit , favorit}) {
-    const favorites = favorit.map((item , key) => { 
+    const favorites = favorit.map((item , key) => {
             return(
                 <li key={"eventList-"+key}>
                             <div>
                                 <span className="title">
                                     <span>{item.nom_de_la_manifestation}</span>
-                                    <button onClick={()=>isFavorit(item)}><FavoriteBorderIcon/></button>
-                                    <button onClick={() => addToCalendar(item)}>Ajouter à l'agenda </button>
+                                    <SwitchHeart isFavorit={() => isFavorit(item)}/>
+                                    <button onClick={() => addToCalendar(item)}><DateRangeIcon/></button>
                                 </span>
                                 <span>{item.domaine}</span>
                                 <address>{item.commune_principale} / {item.departement}</address>
@@ -20,12 +21,12 @@ export default function FavoritesListing({ addToCalendar , isFavorit , favorit})
             )
         });
 
-    return ( 
-        favorites.length === 0 ? 
-            <div> 
-                <span> Aucn événement à vos favoris pour le moment </span>
+    return (
+        favorites.length === 0 ?
+            <div className="Noevent">
+                <span> Aucun événement à vos favoris pour le moment </span>
             </div>
-            : 
+            :
             favorites
      )
 }
