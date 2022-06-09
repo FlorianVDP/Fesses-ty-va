@@ -87,7 +87,7 @@ export default function FormFilterDatas({data, filterRegions, filterDomaines, cl
                 </FormControl>
             </Grid>
             <Grid item>
-                <Button variant="text" onClick={clearFilter}>Clear</Button>
+                <Button variant="text" onClick={clearFilter}>Réinitialiser</Button>
             </Grid>
         </Grid>
     )

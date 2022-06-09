@@ -73,10 +73,10 @@ ul.EventListing, ul.FavoritListing{
 
 ul.EventListing li, ul.FavoritListing li{
   list-style-type: none;
-  padding :  10px 10px 0px ;
+  padding : 15px 15px 0px ;
 }
 
-ul.EventListing li:hover, ul.FavoritListing li:hover {
+ul.EventListing li:hover {
   background-color: #f0f0f0;
 }
 ul.EventListing li.active, ul.FavoritListing li.active{
@@ -93,15 +93,22 @@ ul.EventListing li.active a:hover, ul.FavoritListing li.active a:hover{
 }
 ul.EventListing li div, ul.FavoritListing li div{
   padding-bottom : 20px;
-  border-bottom : 1px solid rgba(0, 0, 0, .1);
+  border-bottom : 1px solid grey
 }
 
 ul.EventListing li div address, ul.FavoritListing li div address{
   padding-bottom : 20px;
-  
+
 }
 
-ul.EventListing li .title, ul.FavoritListing li .title {
-  display : flex ; 
+
+ul.EventListing li .title {
+  display : flex ;
   justify-content: space-between;
 }
+
+ .title button {
+border : none ;
+background : none ;
+}
+.Noevent { padding : 15px ; }
