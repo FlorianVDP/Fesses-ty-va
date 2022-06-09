@@ -1,7 +1,5 @@
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import sanitize from "../../functions/sanitize";
-import {Marker} from "@react-google-maps/api";
-import {Button , grid} from "@mui/material";
+import {Button} from "@mui/material";
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import SwitchHeart from "./SwitchHeart";
 
@@ -15,7 +13,7 @@ export default function EventListing({data, addToCalendar, isFavorit, currentEve
                         <span className="title">
                             <span>{item.nom_de_la_manifestation}</span>
                             <SwitchHeart isFavorit={() => isFavorit(item)}/>
-                            <button onClick={(item) => addToCalendar(item)}><DateRangeIcon /></button>
+                            <button onClick={() => addToCalendar(item)}><DateRangeIcon /></button>
                         </span>
                         <span>{item.domaine}</span>
                         <address>{item.commune_principale} / {item.departement}</address>

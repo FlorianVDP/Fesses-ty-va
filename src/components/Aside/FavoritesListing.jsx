@@ -1,4 +1,3 @@
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import {Button} from "@mui/material";
 import SwitchHeart from "./SwitchHeart";
 import DateRangeIcon from '@mui/icons-material/DateRange';

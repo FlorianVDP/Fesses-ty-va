@@ -12,18 +12,18 @@ export default function Aside({data, addToCalendar, currentEvent}){
     const [favorit , setFavorit] = useState([]);
 
     function isFavorit(itemFav){
-      console.log("Favorit function")
+
       setFavorit(prevFav => {
           const newFav = favorit.includes(itemFav) ?
-              setFavorit(prevState => prevFav.filter(item => item !== itemFav ))
+              setFavorit(prevFav.filter(item => item !== itemFav ))
               :
-              setFavorit(prevState => [...prevFav.filter(item => item !== itemFav) , itemFav])
-
-
-          localStorage.setItem('itemFav', newFav);
+              setFavorit([...prevFav.filter(item => item !== itemFav) , itemFav])
           return newFav
     })
+
     }
+
+
 
     return(
             <aside>
