@@ -4,6 +4,7 @@ import DateRangeIcon from '@mui/icons-material/DateRange';
 
 export default function FavoritesListing({ addToCalendar , isFavorit , favorit}) {
     const favorites = favorit.map((item , key) => {
+
             return(
                 <li key={"eventList-"+key}>
                             <div>
@@ -20,6 +21,11 @@ export default function FavoritesListing({ addToCalendar , isFavorit , favorit})
                         </li>
             )
         });
+        console.log(favorites , 'favorites');
+
+
+
+
 
     return (
         favorites.length === 0 ?
@@ -27,6 +33,10 @@ export default function FavoritesListing({ addToCalendar , isFavorit , favorit})
                 <span> Aucun événement à vos favoris pour le moment </span>
             </div>
             :
-            favorites
+
+            <ul className="EventListing">
+               {favorites}
+             </ul>
+
      )
 }

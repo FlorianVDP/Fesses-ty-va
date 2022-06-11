@@ -13,7 +13,7 @@ export default function EventListing({data, addToCalendar, isFavorit, currentEve
                         <span className="title">
                             <span>{item.nom_de_la_manifestation}</span>
                             <SwitchHeart isFavorit={() => isFavorit(item)}/>
-                            <button onClick={() => addToCalendar(item)}><DateRangeIcon /></button>
+                            <button className="pointer" onClick={() => addToCalendar(item)}><DateRangeIcon /></button>
                         </span>
                         <span>{item.domaine}</span>
                         <address>{item.commune_principale} / {item.departement}</address>
