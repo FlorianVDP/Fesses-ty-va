@@ -14,11 +14,11 @@ export default function Aside({data, addToCalendar, currentEvent}){
     function isFavorit(itemFav){
 
       setFavorit(prevFav => {
-          const newFav = favorit.includes(itemFav) ?
-              setFavorit(prevFav.filter(item => item !== itemFav ))
-              :
-              setFavorit([...prevFav.filter(item => item !== itemFav) , itemFav])
-          return newFav
+          return favorit.includes(itemFav) ?
+          prevFav.filter(item => item !== itemFav )
+          :
+          [...prevFav.filter(item => item !== itemFav) , itemFav]
+
     })
 
     }
@@ -28,7 +28,7 @@ export default function Aside({data, addToCalendar, currentEvent}){
     return(
             <aside>
                 <Grid container className={"Aside"} height="100%">
-                    {value === 0 ? <EventListing data={data} addToCalendar={(item) => addToCalendar(item)} isFavorit={isFavorit} currentEvent={currentEvent} /> : null}
+                    {value === 0 ? <EventListing data={data} addToCalendar={(item) => addToCalendar(item)} isFavorit={isFavorit} currentEvent={currentEvent} favorites={favorit} /> : null}
                     {value === 1 ? <FavoritesListing data={data} addToCalendar={(item) => addToCalendar(item)} isFavorit={isFavorit} favorit={favorit}/> : null}
 
                 <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>

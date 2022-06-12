@@ -3,7 +3,7 @@ import SwitchHeart from "./SwitchHeart";
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import { FacebookShareButton , FacebookIcon ,  TwitterShareButton , TwitterIcon } from "react-share";
 
-export default function FavoritesListing({ addToCalendar , isFavorit , favorit}) {
+export default function FavoritesListing({ addToCalendar , isFavorit , favorit }) {
     const favorites = favorit.map((item , key) => {
 
             return(
@@ -11,7 +11,7 @@ export default function FavoritesListing({ addToCalendar , isFavorit , favorit})
                             <div>
                                 <span className="title">
                                     <span>{item.nom_de_la_manifestation}</span>
-                                    <SwitchHeart isFavorit={() => isFavorit(item)}/>
+                                    <SwitchHeart item={item} isFavorit={() => isFavorit(item)}/>
                                     <button onClick={() => addToCalendar(item)}><DateRangeIcon/></button>
                                 </span>
                                 <span>{item.domaine}</span>
@@ -34,6 +34,11 @@ export default function FavoritesListing({ addToCalendar , isFavorit , favorit})
                         </li>
             )
         });
+        console.log(favorites , 'favorites');
+
+
+
+
 
         console.log(favorites , 'favorites');
 

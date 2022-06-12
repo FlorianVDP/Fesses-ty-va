@@ -1,12 +1,21 @@
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-export default function SwitchHeart({isFavorit , item}) {
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoritesListing from './FavoritesListing';
+import EventListing from './EventListing';
 
 
+export default function SwitchHeart({isFavorit , item , favorites }) {
 
             return(
                 <>
-                            <button onClick={() => isFavorit(item)}>
-                                <FavoriteBorderIcon />
+                            <button className="pointer" onClick={() => isFavorit(item)}>
+                            {favorites?.some(
+                                (element) => element?.nom_de_la_manifestation === item?.nom_de_la_manifestation
+                                  ) ? (
+                                     <FavoriteIcon />
+                                  ) : (
+                                      <FavoriteBorderIcon />
+                                  )}
                             </button>
 
                       </>

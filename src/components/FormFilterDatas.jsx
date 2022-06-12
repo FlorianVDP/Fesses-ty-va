@@ -1,6 +1,7 @@
 import {useMemo, useState} from "react";
-import {Button, FormControl, InputLabel, MenuItem, Select, Grid} from "@mui/material";
+import {Button, FormControl, InputLabel, MenuItem, Select, Grid } from "@mui/material";
 import extractUniqueItem from "../functions/extractUniqueItem";
+import { useInput } from '@mui/base/InputUnstyled';
 
 export default function FormFilterDatas({data, filterRegions, filterDomaines, clearFilters}) {
     const [stateRegion, setRegion] = useState("");
@@ -84,6 +85,14 @@ export default function FormFilterDatas({data, filterRegions, filterDomaines, cl
                     >
                         {domaines}
                     </Select>
+                </FormControl>
+            </Grid>
+            <Grid item xs={2}>
+                <FormControl fullWidth>
+
+
+
+
                 </FormControl>
             </Grid>
             <Grid item>
