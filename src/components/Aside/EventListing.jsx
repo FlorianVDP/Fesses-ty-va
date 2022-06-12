@@ -3,7 +3,7 @@ import {Button} from "@mui/material";
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import SwitchHeart from "./SwitchHeart";
 
-export default function EventListing({data, addToCalendar, isFavorit, currentEvent}) {
+export default function EventListing({data, addToCalendar, isFavorit, currentEvent , favorites}) {
     const events = data.map((item, key) => {
         if (item.coordonnees_insee !== null){
 
@@ -12,7 +12,7 @@ export default function EventListing({data, addToCalendar, isFavorit, currentEve
                     <div>
                         <span className="title">
                             <span>{item.nom_de_la_manifestation}</span>
-                            <SwitchHeart isFavorit={() => isFavorit(item)}/>
+                            <SwitchHeart favorites={favorites} item={item} isFavorit={() => isFavorit(item)}/>
                             <button className="pointer" onClick={() => addToCalendar(item)}><DateRangeIcon /></button>
                         </span>
                         <span>{item.domaine}</span>

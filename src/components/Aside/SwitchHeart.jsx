@@ -6,19 +6,16 @@ import EventListing from './EventListing';
 
 export default function SwitchHeart({isFavorit , item , favorites }) {
 
-
-
-// si element EventListing est présent dans tableau favorites,
-// alors afficher FavoriteIcon, sinon FavoriteBorder icon
-
-// if favorites.includes(eventlisting) { coeur plein } else { coeur vide }
-//  { FavoritesListing.includes(EventListing) ? <FavoriteIcon/> : <FavoriteBorderIcon/> }
-
-
             return(
                 <>
                             <button className="pointer" onClick={() => isFavorit(item)}>
-                               <FavoriteIcon/>
+                            {favorites?.some(
+                                (element) => element?.nom_de_la_manifestation === item?.nom_de_la_manifestation
+                                  ) ? (
+                                     <FavoriteIcon />
+                                  ) : (
+                                      <FavoriteBorderIcon />
+                                  )}
                             </button>
 
                       </>

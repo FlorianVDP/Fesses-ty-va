@@ -2,7 +2,7 @@ import {Button} from "@mui/material";
 import SwitchHeart from "./SwitchHeart";
 import DateRangeIcon from '@mui/icons-material/DateRange';
 
-export default function FavoritesListing({ addToCalendar , isFavorit , favorit}) {
+export default function FavoritesListing({ addToCalendar , isFavorit , favorit }) {
     const favorites = favorit.map((item , key) => {
 
             return(
@@ -10,7 +10,7 @@ export default function FavoritesListing({ addToCalendar , isFavorit , favorit})
                             <div>
                                 <span className="title">
                                     <span>{item.nom_de_la_manifestation}</span>
-                                    <SwitchHeart isFavorit={() => isFavorit(item)}/>
+                                    <SwitchHeart item={item} isFavorit={() => isFavorit(item)}/>
                                     <button onClick={() => addToCalendar(item)}><DateRangeIcon/></button>
                                 </span>
                                 <span>{item.domaine}</span>
