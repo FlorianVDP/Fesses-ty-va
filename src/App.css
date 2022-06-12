@@ -114,4 +114,13 @@ background : none ;
 .Noevent { padding : 15px ; }
 
 
+
 .pointer { cursor: pointer;}
+
+.SocialMedia button svg { width : 30px ; margin : 5px }
+
+.links {width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;}
+

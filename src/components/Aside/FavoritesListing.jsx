@@ -1,6 +1,7 @@
 import {Button} from "@mui/material";
 import SwitchHeart from "./SwitchHeart";
 import DateRangeIcon from '@mui/icons-material/DateRange';
+import { FacebookShareButton , FacebookIcon ,  TwitterShareButton , TwitterIcon } from "react-share";
 
 export default function FavoritesListing({ addToCalendar , isFavorit , favorit }) {
     const favorites = favorit.map((item , key) => {
@@ -17,10 +18,28 @@ export default function FavoritesListing({ addToCalendar , isFavorit , favorit }
                                 <address>{item.commune_principale} / {item.departement}</address>
                                 {item.site_web ? <Button variant="outlined" href={item.site_web} target="_blank" title={item.site_web}>Voir plus</Button> : null}
                                 {item.commentaires ? <p>{item.commentaires}</p> : null}
+                                <span className="links">
+                                  {item.site_web ? <Button variant="outlined" href={item.site_web} target="_blank" title={item.site_web}>Voir plus</Button> : null}
+                                    <span className="SocialMedia">
+                                      <FacebookShareButton url={item.site_web}>
+                                          <FacebookIcon logoFillColor="white" round={true}/>
+                                      </FacebookShareButton>
+                                      <TwitterShareButton url={item.site_web}>
+                                          <TwitterIcon logoFillColor="white" round={true}/>
+                                      </TwitterShareButton>
+                                    </span>
+                          </span>
+
                             </div>
                         </li>
             )
         });
+        console.log(favorites , 'favorites');
+
+
+
+
+
         console.log(favorites , 'favorites');
 
 
