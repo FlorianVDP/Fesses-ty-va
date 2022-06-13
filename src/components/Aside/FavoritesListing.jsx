@@ -11,12 +11,11 @@ export default function FavoritesListing({ addToCalendar , isFavorit , favorit }
                             <div>
                                 <span className="title">
                                     <span>{item.nom_de_la_manifestation}</span>
-                                    <SwitchHeart item={item} isFavorit={() => isFavorit(item)}/>
+                                    <SwitchHeart favorites={favorit} item={item} isFavorit={() => isFavorit(item)}/>
                                     <button onClick={() => addToCalendar(item)}><DateRangeIcon/></button>
                                 </span>
                                 <span>{item.domaine}</span>
                                 <address>{item.commune_principale} / {item.departement}</address>
-                                {item.site_web ? <Button variant="outlined" href={item.site_web} target="_blank" title={item.site_web}>Voir plus</Button> : null}
                                 {item.commentaires ? <p>{item.commentaires}</p> : null}
                                 <span className="links">
                                   {item.site_web ? <Button variant="outlined" href={item.site_web} target="_blank" title={item.site_web}>Voir plus</Button> : null}
@@ -34,13 +33,6 @@ export default function FavoritesListing({ addToCalendar , isFavorit , favorit }
                         </li>
             )
         });
-        console.log(favorites , 'favorites');
-
-
-
-
-
-        console.log(favorites , 'favorites');
 
 
 

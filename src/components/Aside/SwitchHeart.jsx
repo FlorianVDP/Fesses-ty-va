@@ -1,7 +1,5 @@
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import FavoritesListing from './FavoritesListing';
-import EventListing from './EventListing';
 
 
 export default function SwitchHeart({isFavorit , item , favorites }) {
