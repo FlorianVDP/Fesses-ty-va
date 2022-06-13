@@ -20,10 +20,10 @@ export default function Aside({data, addToCalendar, currentEvent}){
           [...prevFav.filter(item => item !== itemFav) , itemFav]
 
     })
+    localStorage.setItem('itemFav', JSON.stringify(itemFav));
+
 
     }
-
-
 
     return(
             <aside>
