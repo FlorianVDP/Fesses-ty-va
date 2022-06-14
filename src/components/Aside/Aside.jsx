@@ -1,5 +1,5 @@
 import {BottomNavigationAction, BottomNavigation, Grid, Paper} from "@mui/material";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import * as React from 'react';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import {List} from "@mui/icons-material";
@@ -8,19 +8,29 @@ import FavoritesListing from "./FavoritesListing";
 
 export default function Aside({data, addToCalendar, currentEvent}){
     const [value, setValue] = useState(0)
-
     const [favorit , setFavorit] = useState([]);
 
+    useEffect(() => {
+
+        if (JSON.parse(localStorage.getItem('itemFav'))) {
+          setFavorit(
+            JSON.parse(localStorage.getItem('itemFav'))
+          )
+        }
+
+    }, []);
+
     function isFavorit(itemFav){
-
-      setFavorit(prevFav => {
-          return favorit.includes(itemFav) ?
-          prevFav.filter(item => item !== itemFav )
-          :
-          [...prevFav.filter(item => item !== itemFav) , itemFav]
-
-    })
-    localStorage.setItem('itemFav', JSON.stringify(itemFav));
+      let newEntry = null;
+      if (favorit.includes(itemFav)) {
+        newEntry = favorit.filter(item => item !== itemFav )
+      }else{
+        newEntry = [...favorit.filter(item => item !== itemFav) , itemFav]
+      }
+      setFavorit(
+          newEntry
+    )
+    localStorage.setItem('itemFav', JSON.stringify(newEntry));
 
 
     }
