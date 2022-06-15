@@ -21,10 +21,10 @@ export default function FavoritesListing({ addToCalendar , isFavorit , favorit }
                                   {item.site_web ? <Button variant="outlined" href={item.site_web} target="_blank" title={item.site_web}>Voir plus</Button> : null}
                                     <span className="SocialMedia">
                                       <FacebookShareButton url={item.site_web}>
-                                          <FacebookIcon logoFillColor="white" round={true}/>
+                                          <FacebookIcon  round={true}/>
                                       </FacebookShareButton>
                                       <TwitterShareButton url={item.site_web}>
-                                          <TwitterIcon logoFillColor="white" round={true}/>
+                                          <TwitterIcon round={true}/>
                                       </TwitterShareButton>
                                     </span>
                           </span>
